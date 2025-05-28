@@ -1,0 +1,1014 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KarigorBD - Empowering Local Artisans</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .phone-container {
+            width: 375px;
+            height: 720px;
+            background: #000;
+            border-radius: 40px;
+            padding: 10px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .screen {
+            width: 100%;
+            height: 100%;
+            background: #fff;
+            border-radius: 30px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .status-bar {
+            height: 44px;
+            background: linear-gradient(135deg, #ff6b6b, #feca57);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 20px;
+            color: white;
+            font-size: 14px;
+            font-weight: 600;
+        }
+
+        .app-screen {
+            display: none;
+            height: calc(100% - 44px);
+            overflow-y: scroll;
+            padding-bottom: 100px; /* Space for bottom nav */
+            scrollbar-width: none; /* Firefox */
+            -ms-overflow-style: none; /* Internet Explorer 10+ */
+        }
+
+        .app-screen::-webkit-scrollbar {
+            display: none; /* Chrome, Safari, Opera */
+        }
+
+        .app-screen.active {
+            display: block;
+        }
+
+        /* Home Screen */
+        .hero-section {
+            background: linear-gradient(135deg, #ff6b6b, #feca57);
+            padding: 30px 20px;
+            color: white;
+            text-align: center;
+        }
+
+        .hero-section h1 {
+            font-size: 28px;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+
+        .hero-section p {
+            font-size: 16px;
+            opacity: 0.9;
+            margin-bottom: 20px;
+        }
+
+        .search-box {
+            background: rgba(255,255,255,0.2);
+            border: none;
+            border-radius: 25px;
+            padding: 12px 20px;
+            width: 100%;
+            color: white;
+            font-size: 16px;
+            backdrop-filter: blur(10px);
+        }
+
+        .search-box::placeholder {
+            color: rgba(255,255,255,0.8);
+        }
+
+        .categories {
+            padding: 20px;
+            background: #f8f9fa;
+        }
+
+        .section-title {
+            font-size: 20px;
+            font-weight: 700;
+            margin-bottom: 15px;
+            color: #2c3e50;
+        }
+
+        .category-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+        }
+
+        .category-card {
+            background: white;
+            border-radius: 15px;
+            padding: 20px;
+            text-align: center;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .category-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .category-icon {
+            font-size: 40px;
+            margin-bottom: 10px;
+        }
+
+        .category-name {
+            font-weight: 600;
+            color: #2c3e50;
+        }
+
+        .featured-section {
+            padding: 20px;
+            background: white;
+        }
+
+        .product-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+            margin-top: 15px;
+        }
+
+        .product-card {
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .product-card:hover {
+            transform: translateY(-3px);
+        }
+
+        .product-image {
+            height: 120px;
+            background: linear-gradient(45deg, #ff9a9e, #fecfef);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 30px;
+            color: white;
+        }
+
+        .product-info {
+            padding: 12px;
+        }
+
+        .product-name {
+            font-weight: 600;
+            color: #2c3e50;
+            font-size: 14px;
+            margin-bottom: 5px;
+        }
+
+        .product-price {
+            color: #e74c3c;
+            font-weight: 700;
+            font-size: 16px;
+        }
+
+        .seller-name {
+            color: #7f8c8d;
+            font-size: 12px;
+            margin-top: 3px;
+        }
+
+        /* Urban Seller Hub */
+        .urban-hub {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            padding: 30px 20px;
+            color: white;
+            text-align: center;
+        }
+
+        .location-filter {
+            display: flex;
+            gap: 10px;
+            margin: 20px;
+            overflow-x: auto;
+        }
+
+        .location-chip {
+            background: #3498db;
+            color: white;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 14px;
+            white-space: nowrap;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+
+        .location-chip.active {
+            background: #e74c3c;
+        }
+
+        .seller-list {
+            padding: 0 20px;
+        }
+
+        .seller-card {
+            background: white;
+            border-radius: 15px;
+            padding: 20px;
+            margin-bottom: 15px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+
+        .seller-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+
+        .seller-avatar {
+            width: 50px;
+            height: 50px;
+            border-radius: 25px;
+            background: linear-gradient(45deg, #ff6b6b, #feca57);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 700;
+            margin-right: 15px;
+        }
+
+        .seller-details h3 {
+            color: #2c3e50;
+            font-size: 18px;
+            margin-bottom: 5px;
+        }
+
+        .seller-location {
+            color: #7f8c8d;
+            font-size: 14px;
+            display: flex;
+            align-items: center;
+        }
+
+        .seller-story {
+            color: #34495e;
+            font-size: 14px;
+            line-height: 1.5;
+            margin-bottom: 15px;
+        }
+
+        .seller-stats {
+            display: flex;
+            justify-content: space-between;
+            font-size: 12px;
+            color: #7f8c8d;
+        }
+
+        /* Artisan Stories */
+        .story-card {
+            background: white;
+            border-radius: 15px;
+            margin: 15px 20px;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+
+        .story-image {
+            height: 200px;
+            background: linear-gradient(45deg, #a8edea, #fed6e3);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 40px;
+            color: white;
+        }
+
+        .story-content {
+            padding: 20px;
+        }
+
+        .story-title {
+            font-size: 18px;
+            font-weight: 700;
+            color: #2c3e50;
+            margin-bottom: 10px;
+        }
+
+        .story-text {
+            color: #34495e;
+            line-height: 1.6;
+            font-size: 14px;
+            margin-bottom: 15px;
+        }
+
+        .story-author {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .author-info {
+            display: flex;
+            align-items: center;
+        }
+
+        .author-avatar {
+            width: 30px;
+            height: 30px;
+            border-radius: 15px;
+            background: linear-gradient(45deg, #ff6b6b, #feca57);
+            margin-right: 10px;
+        }
+
+        /* Bottom Navigation */
+        .bottom-nav {
+            position: absolute;
+            bottom: 20px;
+            left: 20px;
+            right: 20px;
+            background: rgba(255,255,255,0.95);
+            backdrop-filter: blur(20px);
+            border-radius: 25px;
+            padding: 15px 20px;
+            display: flex;
+            justify-content: space-around;
+            gap: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            z-index: 100;
+        }
+
+        .nav-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+            flex: 1;
+            text-align: center;
+        }
+
+        .nav-item:hover {
+            transform: translateY(-2px);
+        }
+
+        .nav-item.active {
+            color: #e74c3c;
+        }
+
+        .nav-icon {
+            font-size: 24px;
+            margin-bottom: 5px;
+        }
+
+        .nav-label {
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+        .floating-btn {
+            position: absolute;
+            bottom: 110px;
+            right: 30px;
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(45deg, #ff6b6b, #feca57);
+            border-radius: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 24px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            cursor: pointer;
+            transition: transform 0.3s ease;
+            z-index: 100;
+        }background: linear-gradient(45deg, #ff6b6b, #feca57);
+            border-radius: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 24px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+
+        .floating-btn:hover {
+            transform: scale(1.1);
+        }
+
+        .badge {
+            background: #e74c3c;
+            color: white;
+            border-radius: 10px;
+            padding: 2px 6px;
+            font-size: 10px;
+            position: absolute;
+            top: -5px;
+            right: -5px;
+        }
+
+        /* Profile Screen Adjustments */
+        .profile-content {
+            padding: 20px;
+            height: 100%;
+            overflow-y: scroll;
+            scrollbar-width: none;
+            -ms-overflow-style: none;
+        }
+
+        .profile-content::-webkit-scrollbar {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="phone-container">
+        <div class="screen">
+            <div class="status-bar">
+                <span>9:41</span>
+                <span>KarigorBD</span>
+                <span>100%</span>
+            </div>
+
+            <!-- Home Screen -->
+            <div class="app-screen active" id="home">
+                <div class="hero-section">
+                    <h1>🧶 KarigorBD</h1>
+                    <p>Turn Passion into Prosperity</p>
+                    <input type="text" class="search-box" placeholder="Search handmade treasures...">
+                </div>
+
+                <div class="categories">
+                    <h2 class="section-title">Shop by Category</h2>
+                    <div class="category-grid">
+                        <div class="category-card">
+                            <div class="category-icon">🎨</div>
+                            <div class="category-name">Paintings</div>
+                        </div>
+                        <div class="category-card">
+                            <div class="category-icon">🧶</div>
+                            <div class="category-name">Crochet</div>
+                        </div>
+                        <div class="category-card">
+                            <div class="category-icon">🏺</div>
+                            <div class="category-name">Pottery</div>
+                        </div>
+                        <div class="category-card">
+                            <div class="category-icon">👕</div>
+                            <div class="category-name">Apparel</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="featured-section">
+                    <h2 class="section-title">✨ Featured Creations</h2>
+                    <div class="product-grid">
+                        <div class="product-card">
+                            <div class="product-image">🎨</div>
+                            <div class="product-info">
+                                <div class="product-name">Abstract Canvas</div>
+                                <div class="product-price">৳1,200</div>
+                                <div class="seller-name">by Fatema</div>
+                            </div>
+                        </div>
+                        <div class="product-card">
+                            <div class="product-image">🧶</div>
+                            <div class="product-info">
+                                <div class="product-name">Cozy Blanket</div>
+                                <div class="product-price">৳2,500</div>
+                                <div class="seller-name">by Rashida</div>
+                            </div>
+                        </div>
+                        <div class="product-card">
+                            <div class="product-image">🏺</div>
+                            <div class="product-info">
+                                <div class="product-name">Clay Dinner Set</div>
+                                <div class="product-price">৳800</div>
+                                <div class="seller-name">by Karim</div>
+                            </div>
+                        </div>
+                        <div class="product-card">
+                            <div class="product-image">👕</div>
+                            <div class="product-info">
+                                <div class="product-name">Custom Sweater</div>
+                                <div class="product-price">৳1,800</div>
+                                <div class="seller-name">by Nasir</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Urban Seller Hub -->
+            <div class="app-screen" id="urban">
+                <div class="urban-hub">
+                    <h1>🏙️ Urban Seller Hub</h1>
+                    <p>Discover creators in your city</p>
+                </div>
+
+                <div class="location-filter">
+                    <div class="location-chip active">📍 Near Me</div>
+                    <div class="location-chip">Dhaka</div>
+                    <div class="location-chip">Chittagong</div>
+                    <div class="location-chip">Sylhet</div>
+                </div>
+
+                <div class="seller-list">
+                    <div class="seller-card">
+                        <div class="seller-header">
+                            <div class="seller-avatar">F</div>
+                            <div class="seller-details">
+                                <h3>Fatema's Art Corner</h3>
+                                <div class="seller-location">📍 Dhanmondi, Dhaka • 2.3 km</div>
+                            </div>
+                        </div>
+                        <div class="seller-story">
+                            "I started painting during the pandemic and fell in love with abstract art. Each piece tells a story of resilience and hope."
+                        </div>
+                        <div class="seller-stats">
+                            <span>⭐ 4.8 rating</span>
+                            <span>📦 45 orders</span>
+                            <span>🎨 12 items</span>
+                        </div>
+                    </div>
+
+                    <div class="seller-card">
+                        <div class="seller-header">
+                            <div class="seller-avatar">R</div>
+                            <div class="seller-details">
+                                <h3>Rashida's Crochet</h3>
+                                <div class="seller-location">📍 Uttara, Dhaka • 5.1 km</div>
+                            </div>
+                        </div>
+                        <div class="seller-story">
+                            "Crocheting is my meditation. I create cozy items that bring warmth to families across Bangladesh."
+                        </div>
+                        <div class="seller-stats">
+                            <span>⭐ 4.9 rating</span>
+                            <span>📦 78 orders</span>
+                            <span>🧶 24 items</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Artisan Stories -->
+            <div class="app-screen" id="stories">
+                <div class="hero-section">
+                    <h1>📖 Artisan Stories</h1>
+                    <p>Discover the passion behind each creation</p>
+                </div>
+
+                <div class="story-card">
+                    <div class="story-image">🎨</div>
+                    <div class="story-content">
+                        <div class="story-title">From Hobby to Business</div>
+                        <div class="story-text">
+                            "What started as a weekend hobby became my full-time passion. Each brushstroke carries my emotions, and seeing customers connect with my art brings me immense joy..."
+                        </div>
+                        <div class="story-author">
+                            <div class="author-info">
+                                <div class="author-avatar"></div>
+                                <span>Fatema Rahman</span>
+                            </div>
+                            <span>❤️ 124</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="story-card">
+                    <div class="story-image">🧶</div>
+                    <div class="story-content">
+                        <div class="story-title">Weaving Dreams</div>
+                        <div class="story-text">
+                            "Every stitch is a prayer, every pattern a dream. Through KarigorBD, I've been able to support my family while doing what I love most - creating beautiful crochet pieces..."
+                        </div>
+                        <div class="story-author">
+                            <div class="author-info">
+                                <div class="author-avatar"></div>
+                                <span>Rashida Begum</span>
+                            </div>
+                            <span>❤️ 89</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Profile Screen -->
+            <div class="app-screen" id="profile">
+                <div class="hero-section">
+                    <div class="seller-avatar" style="width: 80px; height: 80px; margin: 0 auto 20px;">U</div>
+                    <h1>Your Profile</h1>
+                    <p>Manage your artisan journey</p>
+                </div>
+
+                <div class="profile-content">
+                    <div class="seller-card">
+                        <h3 style="margin-bottom: 15px;">📊 Your Dashboard</h3>
+                        <div class="seller-stats" style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 15px;">
+                            <div style="text-align: center; padding: 15px; background: #f8f9fa; border-radius: 10px;">
+                                <div style="font-size: 24px; font-weight: 700; color: #e74c3c;">12</div>
+                                <div>Products</div>
+                            </div>
+                            <div style="text-align: center; padding: 15px; background: #f8f9fa; border-radius: 10px;">
+                                <div style="font-size: 24px; font-weight: 700; color: #27ae60;">34</div>
+                                <div>Orders</div>
+                            </div>
+                            <div style="text-align: center; padding: 15px; background: #f8f9fa; border-radius: 10px;">
+                                <div style="font-size: 24px; font-weight: 700; color: #3498db;">4.8</div>
+                                <div>Rating</div>
+                            </div>
+                            <div style="text-align: center; padding: 15px; background: #f8f9fa; border-radius: 10px;">
+                                <div style="font-size: 24px; font-weight: 700; color: #f39c12;">৳15K</div>
+                                <div>Earned</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="seller-card" style="margin-top: 20px;">
+                        <h3 style="margin-bottom: 15px;">🛠️ Quick Actions</h3>
+                        <div style="display: grid; gap: 10px;">
+                            <button style="background: #3498db; color: white; border: none; padding: 15px; border-radius: 10px; font-weight: 600;">+ Add New Product</button>
+                            <button style="background: #27ae60; color: white; border: none; padding: 15px; border-radius: 10px; font-weight: 600;">📝 Share Your Story</button>
+                            <button style="background: #e74c3c; color: white; border: none; padding: 15px; border-radius: 10px; font-weight: 600;">📊 View Analytics</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Bottom Navigation -->
+            <div class="bottom-nav">
+                <div class="nav-item active" onclick="showScreen('home')">
+                    <div class="nav-icon">🏠</div>
+                    <div class="nav-label">Home</div>
+                </div>
+                <div class="nav-item" onclick="showScreen('urban')">
+                    <div class="nav-icon">🏙️</div>
+                    <div class="nav-label">Urban Hub</div>
+                </div>
+                <div class="nav-item" onclick="showScreen('stories')">
+                    <div class="nav-icon">📖</div>
+                    <div class="nav-label">Stories</div>
+                </div>
+                <div class="nav-item" onclick="showScreen('profile')">
+                    <div class="nav-icon">👤</div>
+                    <div class="nav-label">Profile</div>
+                    <div class="badge">3</div>
+                </div>
+            </div>
+
+            <!-- Floating Action Button -->
+            <div class="floating-btn">
+                <span>💬</span>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        //Sample product data
+        const productData = {
+            paintings: [
+                { name: 'Abstract Sunset', price: '৳1,800', seller: 'Fatema', icon: '🎨', rating: '4.9' },
+                { name: 'Village Life', price: '৳2,200', seller: 'Karim', icon: '🖼️', rating: '4.8' },
+                { name: 'Modern Art', price: '৳1,500', seller: 'Rashida', icon: '🎨', rating: '4.7' },
+                { name: 'Nature Scene', price: '৳1,900', seller: 'Ahmed', icon: '🌅', rating: '4.9' }
+            ],
+            crochet: [
+                { name: 'Baby Blanket', price: '৳2,800', seller: 'Rashida', icon: '🧶', rating: '5.0' },
+                { name: 'Winter Scarf', price: '৳800', seller: 'Nasreen', icon: '🧣', rating: '4.8' },
+                { name: 'Table Runner', price: '৳1,200', seller: 'Fatema', icon: '🧶', rating: '4.7' },
+                { name: 'Cushion Cover', price: '৳650', seller: 'Salma', icon: '🛏️', rating: '4.9' }
+            ],
+            pottery: [
+                { name: 'Tea Set', price: '৳1,500', seller: 'Karim', icon: '🫖', rating: '4.8' },
+                { name: 'Flower Vase', price: '৳900', seller: 'Rahman', icon: '🏺', rating: '4.9' },
+                { name: 'Dinner Plates', price: '৳1,200', seller: 'Nasir', icon: '🍽️', rating: '4.7' },
+                { name: 'Decorative Bowl', price: '৳750', seller: 'Fatema', icon: '🥣', rating: '4.8' }
+            ],
+            apparel: [
+                { name: 'Hand-knit Sweater', price: '৳2,500', seller: 'Rashida', icon: '👕', rating: '4.9' },
+                { name: 'Embroidered Kurta', price: '৳1,800', seller: 'Nasreen', icon: '👔', rating: '4.8' },
+                { name: 'Traditional Saree', price: '৳3,500', seller: 'Salma', icon: '👗', rating: '5.0' },
+                { name: 'Custom Jacket', price: '৳2,200', seller: 'Ahmed', icon: '🧥', rating: '4.7' }
+            ]
+        };
+
+        function showScreen(screenId) {
+            //Hide all screens
+            const screens = document.querySelectorAll('.app-screen');
+            screens.forEach(screen => screen.classList.remove('active'));
+            
+            //Show selected screen
+            document.getElementById(screenId).classList.add('active');
+            
+            //Update navigation
+            const navItems = document.querySelectorAll('.nav-item');
+            navItems.forEach(item => item.classList.remove('active'));
+            event.currentTarget.classList.add('active');
+        }
+
+        function showProducts(category) {
+            const products = productData[category] || productData.paintings;
+            const productGrid = document.querySelector('.product-grid');
+            
+            //Add loading animation
+            productGrid.style.opacity = '0.5';
+            
+            setTimeout(() => {
+                productGrid.innerHTML = products.map(product => `
+                    <div class="product-card" onclick="showProductDetail('${product.name}', '${product.price}', '${product.seller}', '${product.icon}', '${product.rating}')">
+                        <div class="product-image">${product.icon}</div>
+                        <div class="product-info">
+                            <div class="product-name">${product.name}</div>
+                            <div class="product-price">${product.price}</div>
+                            <div class="seller-name">by ${product.seller}</div>
+                            <div style="color: #f39c12; font-size: 12px; margin-top: 3px;">⭐ ${product.rating}</div>
+                        </div>
+                    </div>
+                `).join('');
+                
+                productGrid.style.opacity = '1';
+            }, 300);
+        }
+
+        function showProductDetail(name, price, seller, icon, rating) {
+            const modal = `
+                <div class="product-modal" onclick="closeModal()">
+                    <div class="modal-content" onclick="event.stopPropagation()">
+                        <div class="modal-header">
+                            <span class="close-btn" onclick="closeModal()">&times;</span>
+                        </div>
+                        <div class="product-detail">
+                            <div class="product-image-large">${icon}</div>
+                            <h2>${name}</h2>
+                            <p class="price-large">${price}</p>
+                            <p class="seller-info">👤 Created by ${seller}</p>
+                            <p class="rating-info">⭐ ${rating} rating</p>
+                            <div class="product-description">
+                                <p>This beautiful handcrafted piece represents hours of dedication and traditional artistry. Each item is unique and made with love by local artisans.</p>
+                            </div>
+                            <div class="action-buttons">
+                                <button class="btn-primary" onclick="addToCart('${name}')">🛒 Add to Cart</button>
+                                <button class="btn-secondary" onclick="contactSeller('${seller}')">💬 Message ${seller}</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `;
+            
+            document.body.insertAdjacentHTML('beforeend', modal);
+        }
+
+        function closeModal() {
+            const modal = document.querySelector('.product-modal');
+            if (modal) modal.remove();
+        }
+
+        function addToCart(productName) {
+            showNotification(`${productName} added to cart! 🛒`);
+            closeModal();
+        }
+
+        function contactSeller(sellerName) {
+            showNotification(`Opening chat with ${sellerName} 💬`);
+            closeModal();
+        }
+
+        function showNotification(message) {
+            const notification = `
+                <div class="notification">
+                    ${message}
+                </div>
+            `;
+            document.body.insertAdjacentHTML('beforeend', notification);
+            
+            setTimeout(() => {
+                const notif = document.querySelector('.notification');
+                if (notif) notif.remove();
+            }, 3000);
+        }
+
+        //Enhanced interactions
+        document.addEventListener('DOMContentLoaded', function() {
+            //Category card clicks
+            document.querySelectorAll('.category-card').forEach((card, index) => {
+                const categories = ['paintings', 'crochet', 'pottery', 'apparel'];
+                card.addEventListener('click', function() {
+                    this.style.transform = 'scale(0.95)';
+                    setTimeout(() => {
+                        this.style.transform = '';
+                        showProducts(categories[index]);
+                    }, 150);
+                });
+            });
+
+            //Seller card clicks
+            document.querySelectorAll('.seller-card').forEach(card => {
+                card.addEventListener('click', function() {
+                    this.style.transform = 'scale(0.98)';
+                    setTimeout(() => {
+                        this.style.transform = '';
+                        showProducts('paintings'); // Show seller's products
+                        showNotification('Viewing seller\'s products 👀');
+                    }, 150);
+                });
+            });
+
+            //Location chip interactions
+            document.querySelectorAll('.location-chip').forEach(chip => {
+                chip.addEventListener('click', function() {
+                    document.querySelectorAll('.location-chip').forEach(c => c.classList.remove('active'));
+                    this.classList.add('active');
+                    showNotification(`Filtering sellers in ${this.textContent} 📍`);
+                });
+            });
+
+            //Search box interaction
+            document.querySelector('.search-box').addEventListener('focus', function() {
+                this.style.transform = 'scale(1.02)';
+                showNotification('Search for amazing handcrafted items! 🔍');
+            });
+
+            document.querySelector('.search-box').addEventListener('blur', function() {
+                this.style.transform = 'scale(1)';
+            });
+
+            //Floating button interaction
+            document.querySelector('.floating-btn').addEventListener('click', function() {
+                this.style.transform = 'scale(1.2) rotate(15deg)';
+                setTimeout(() => {
+                    this.style.transform = '';
+                }, 200);
+                showNotification('Chat support is here to help! 💬');
+            });
+
+            //Profile buttons
+            document.addEventListener('click', function(e) {
+                if (e.target.tagName === 'BUTTON' && e.target.textContent.includes('Add New Product')) {
+                    showNotification('Opening product creation form 📝');
+                } else if (e.target.tagName === 'BUTTON' && e.target.textContent.includes('Share Your Story')) {
+                    showNotification('Tell your artisan journey! ✨');
+                } else if (e.target.tagName === 'BUTTON' && e.target.textContent.includes('View Analytics')) {
+                    showNotification('Loading your business insights 📊');
+                }
+            });
+
+            //story card interactions
+            document.querySelectorAll('.story-card').forEach(card => {
+                card.addEventListener('click', function() {
+                    this.style.transform = 'scale(0.98)';
+                    setTimeout(() => {
+                        this.style.transform = '';
+                        showNotification('Reading inspiring artisan story 📖');
+                    }, 150);
+                });
+            });
+        });
+
+        //add CSS for modal and notifications
+        const additionalCSS = `
+            <style>
+                .product-modal {
+                    position: fixed;
+                    top: 0;
+                    left: 0;
+                    width: 100%;
+                    height: 100%;
+                    background: rgba(0,0,0,0.8);
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    z-index: 1000;
+                    backdrop-filter: blur(10px);
+                }
+
+                .modal-content {
+                    background: white;
+                    border-radius: 20px;
+                    width: 90%;
+                    max-width: 400px;
+                    max-height: 80%;
+                    overflow-y: auto;
+                    position: relative;
+                }
+
+                .modal-header {
+                    padding: 20px;
+                    text-align: right;
+                }
+
+                .close-btn {
+                    font-size: 30px;
+                    cursor: pointer;
+                    color: #999;
+                }
+
+                .product-detail {
+                    padding: 0 20px 20px;
+                    text-align: center;
+                }
+
+                .product-image-large {
+                    font-size: 80px;
+                    margin: 20px 0;
+                }
+
+                .price-large {
+                    font-size: 24px;
+                    font-weight: 700;
+                    color: #e74c3c;
+                    margin: 10px 0;
+                }
+
+                .seller-info, .rating-info {
+                    color: #7f8c8d;
+                    margin: 5px 0;
+                }
+
+                .product-description {
+                    margin: 20px 0;
+                    text-align: left;
+                    color: #34495e;
+                    line-height: 1.6;
+                }
+
+                .action-buttons {
+                    display: grid;
+                    gap: 10px;
+                    margin-top: 20px;
+                }
+
+                .btn-primary {
+                    background: linear-gradient(45deg, #ff6b6b, #feca57);
+                    color: white;
+                    border: none;
+                    padding: 15px;
+                    border-radius: 10px;
+                    font-weight: 600;
+                    cursor: pointer;
+                }
+
+                .btn-secondary {
+                    background: #3498db;
+                    color: white;
+                    border: none;
+                    padding: 15px;
+                    border-radius: 10px;
+                    font-weight: 600;
+                    cursor: pointer;
+                }
+
+                .notification {
+                    position: fixed;
+                    top: 80px;
+                    left: 50%;
+                    transform: translateX(-50%);
+                    background: linear-gradient(45deg, #27ae60, #2ecc71);
+                    color: white;
+                    padding: 15px 25px;
+                    border-radius: 25px;
+                    z-index: 1001;
+                    box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+                    animation: slideDown 0.3s ease;
+                }
+
+                @keyframes slideDown {
+                    from { transform: translateX(-50%) translateY(-20px); opacity: 0; }
+                    to { transform: translateX(-50%) translateY(0); opacity: 1; }
+                }
+            </style>
+        `;
+
+        document.head.insertAdjacentHTML('beforeend', additionalCSS);
+    </script>
+</body>
+</html>
