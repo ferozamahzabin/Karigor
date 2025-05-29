@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KarigorBD - Empowering Local Artisans</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="phone-container">
+        <div class="screen">
+            <div class="status-bar">
+                <span>9:41</span>
+                <span>KarigorBD</span>
+                <span>100%</span>
+            </div>
+
+            <!-- Home Screen -->
+            <div class="app-screen active" id="home">
+                <div class="hero-section">
+                    <h1>KarigorBD</h1>
+                    <p>Turn Passion into Prosperity</p>
+                    <input type="text" class="search-box" placeholder="Search handmade treasures...">
+                </div>
+
+                <div class="categories">
+                    <h2 class="section-title">Shop by Category</h2>
+                    <div class="category-grid">
+                        <div class="category-card">
+                            <div class="category-icon">🎨</div>
+                            <div class="category-name">Paintings</div>
+                        </div>
+                        <div class="category-card">
+                            <div class="category-icon">🧶</div>
+                            <div class="category-name">Crochet</div>
+                        </div>
+                        <div class="category-card">
+                            <div class="category-icon">🏺</div>
+                            <div class="category-name">Pottery</div>
+                        </div>
+                        <div class="category-card">
+                            <div class="category-icon">👕</div>
+                            <div class="category-name">Apparel</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="featured-section">
+                    <h2 class="section-title">✨ Featured Creations</h2>
+                    <div class="product-grid">
+                        <div class="product-card">
+                            <div class="product-image">
+                                <img src="https://picsum.photos/200/120?random=1" alt="Abstract Canvas">
+                            </div>
+                            <div class="product-info">
+                                <div class="product-name">Abstract Canvas</div>
+                                <div class="product-price">৳1,200</div>
+                                <div class="seller-name">by Fatema</div>
+                            </div>
+                        </div>
+                        <div class="product-card">
+                            <div class="product-image">
+                                <img src="https://picsum.photos/200/120?random=2" alt="Cozy Blanket">
+                            </div>
+                            <div class="product-info">
+                                <div class="product-name">Cozy Blanket</div>
+                                <div class="product-price">৳2,500</div>
+                                <div class="seller-name">by Rashida</div>
+                            </div>
+                        </div>
+                        <div class="product-card">
+                            <div class="product-image">
+                                <img src="https://picsum.photos/200/120?random=3" alt="Clay Dinner Set">
+                            </div>
+                            <div class="product-info">
+                                <div class="product-name">Clay Dinner Set</div>
+                                <div class="product-price">৳800</div>
+                                <div class="seller-name">by Karim</div>
+                            </div>
+                        </div>
+                        <div class="product-card">
+                            <div class="product-image">
+                                <img src="https://picsum.photos/200/120?random=4" alt="Custom Sweater">
+                            </div>
+                            <div class="product-info">
+                                <div class="product-name">Custom Sweater</div>
+                                <div class="product-price">৳1,800</div>
+                                <div class="seller-name">by Nasir</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Cart Screen -->
+            <div class="app-screen" id="cart">
+                <div class="hero-section">
+                    <h1>🛒 Shopping Cart</h1>
+                    <p>Review your selected items</p>
+                </div>
+
+                <div class="cart-content">
+                    <div class="cart-items" id="cartItems">
+                        <!-- Cart items will be dynamically inserted here -->
+                    </div>
+
+                    <div class="cart-empty" id="cartEmpty" style="display: none;">
+                        <div class="empty-cart-icon">🛒</div>
+                        <h3>Your cart is empty</h3>
+                        <p>Discover amazing handcrafted items</p>
+                        <button class="btn-primary" onclick="showScreen('home')">Start Shopping</button>
+                    </div>
+
+                    <div class="cart-summary" id="cartSummary">
+                        <div class="summary-row">
+                            <span>Subtotal:</span>
+                            <span id="subtotal">৳0</span>
+                        </div>
+                        <div class="summary-row">
+                            <span>Delivery:</span>
+                            <span id="delivery">৳50</span>
+                        </div>
+                        <div class="summary-row total">
+                            <span>Total:</span>
+                            <span id="total">৳0</span>
+                        </div>
+                        <button class="checkout-btn" onclick="proceedToCheckout()">
+                            Proceed to Checkout 🚀
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Urban Seller Hub -->
+            <div class="app-screen" id="urban">
+                <div class="urban-hub">
+                    <h1>🏙️ Urban Seller Hub</h1>
+                    <p>Discover creators in your city</p>
+                </div>
+
+                <div class="location-filter">
+                    <div class="location-chip active">📍 Near Me</div>
+                    <div class="location-chip">Dhaka</div>
+                    <div class="location-chip">Chittagong</div>
+                    <div class="location-chip">Sylhet</div>
+                </div>
+
+                <div class="seller-list">
+                    <div class="seller-card">
+                        <div class="seller-header">
+                            <div class="seller-avatar">F</div>
+                            <div class="seller-details">
+                                <h3>Fatema's Art Corner</h3>
+                                <div class="seller-location">📍 Dhanmondi, Dhaka • 2.3 km</div>
+                            </div>
+                        </div>
+                        <div class="seller-story">
+                            "I started painting during the pandemic and fell in love with abstract art. Each piece tells a story of resilience and hope."
+                        </div>
+                        <div class="seller-stats">
+                            <span>⭐ 4.8 rating</span>
+                            <span>📦 45 orders</span>
+                            <span>🎨 12 items</span>
+                        </div>
+                    </div>
+
+                    <div class="seller-card">
+                        <div class="seller-header">
+                            <div class="seller-avatar">R</div>
+                            <div class="seller-details">
+                                <h3>Rashida's Crochet</h3>
+                                <div class="seller-location">📍 Uttara, Dhaka • 5.1 km</div>
+                            </div>
+                        </div>
+                        <div class="seller-story">
+                            "Crocheting is my meditation. I create cozy items that bring warmth to families across Bangladesh."
+                        </div>
+                        <div class="seller-stats">
+                            <span>⭐ 4.9 rating</span>
+                            <span>📦 78 orders</span>
+                            <span>🧶 24 items</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Artisan Stories -->
+            <div class="app-screen" id="stories">
+                <div class="hero-section">
+                    <h1>📖 Artisan Stories</h1>
+                    <p>Discover the passion behind each creation</p>
+                </div>
+
+                <div class="story-card">
+                    <div class="story-image">
+                        <img src="https://picsum.photos/400/200?random=10" alt="Artist Story">
+                    </div>
+                    <div class="story-content">
+                        <div class="story-title">From Hobby to Business</div>
+                        <div class="story-text">
+                            "What started as a weekend hobby became my full-time passion. Each brushstroke carries my emotions, and seeing customers connect with my art brings me immense joy..."
+                        </div>
+                        <div class="story-author">
+                            <div class="author-info">
+                                <div class="author-avatar"></div>
+                                <span>Fatema Rahman</span>
+                            </div>
+                            <span>❤️ 124</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="story-card">
+                    <div class="story-image">
+                        <img src="https://picsum.photos/400/200?random=11" alt="Crochet Story">
+                    </div>
+                    <div class="story-content">
+                        <div class="story-title">Weaving Dreams</div>
+                        <div class="story-text">
+                            "Every stitch is a prayer, every pattern a dream. Through KarigorBD, I've been able to support my family while doing what I love most - creating beautiful crochet pieces..."
+                        </div>
+                        <div class="story-author">
+                            <div class="author-info">
+                                <div class="author-avatar"></div>
+                                <span>Rashida Begum</span>
+                            </div>
+                            <span>❤️ 89</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Profile Screen -->
+            <div class="app-screen" id="profile">
+                <div class="hero-section">
+                    <div class="seller-avatar" style="width: 80px; height: 80px; margin: 0 auto 20px;">U</div>
+                    <h1>Your Profile</h1>
+                    <p>Manage your artisan journey</p>
+                </div>
+
+                <div class="profile-content">
+                    <div class="seller-card">
+                        <h3 style="margin-bottom: 15px;">📊 Your Dashboard</h3>
+                        <div class="seller-stats" style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 15px;">
+                            <div style="text-align: center; padding: 15px; background: #f8f9fa; border-radius: 10px;">
+                                <div style="font-size: 24px; font-weight: 700; color: #e74c3c;">12</div>
+                                <div>Products</div>
+                            </div>
+                            <div style="text-align: center; padding: 15px; background: #f8f9fa; border-radius: 10px;">
+                                <div style="font-size: 24px; font-weight: 700; color: #27ae60;">34</div>
+                                <div>Orders</div>
+                            </div>
+                            <div style="text-align: center; padding: 15px; background: #f8f9fa; border-radius: 10px;">
+                                <div style="font-size: 24px; font-weight: 700; color: #3498db;">4.8</div>
+                                <div>Rating</div>
+                            </div>
+                            <div style="text-align: center; padding: 15px; background: #f8f9fa; border-radius: 10px;">
+                                <div style="font-size: 24px; font-weight: 700; color: #f39c12;">৳15K</div>
+                                <div>Earned</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="seller-card" style="margin-top: 20px;">
+                        <h3 style="margin-bottom: 15px;">🛠️ Quick Actions</h3>
+                        <div style="display: grid; gap: 10px;">
+                            <button style="background: #3498db; color: white; border: none; padding: 15px; border-radius: 10px; font-weight: 600;">+ Add New Product</button>
+                            <button style="background: #27ae60; color: white; border: none; padding: 15px; border-radius: 10px; font-weight: 600;">📝 Share Your Story</button>
+                            <button style="background: #e74c3c; color: white; border: none; padding: 15px; border-radius: 10px; font-weight: 600;">📊 View Analytics</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Bottom Navigation -->
+            <div class="bottom-nav">
+                <div class="nav-item active" onclick="showScreen('home')">
+                    <div class="nav-icon">🏠</div>
+                    <div class="nav-label">Home</div>
+                </div>
+                <div class="nav-item" onclick="showScreen('urban')">
+                    <div class="nav-icon">🏙️</div>
+                    <div class="nav-label">Urban Hub</div>
+                </div>
+                <div class="nav-item" onclick="showScreen('cart')">
+                    <div class="nav-icon">🛒</div>
+                    <div class="nav-label">Cart</div>
+                    <div class="badge" id="cartBadge" style="display: none;">0</div>
+                </div>
+                <div class="nav-item" onclick="showScreen('stories')">
+                    <div class="nav-icon">📖</div>
+                    <div class="nav-label">Stories</div>
+                </div>
+                <div class="nav-item" onclick="showScreen('profile')">
+                    <div class="nav-icon">👤</div>
+                    <div class="nav-label">Profile</div>
+                    <div class="badge">3</div>
+                </div>
+            </div>
+
+            <!-- Floating Action Button -->
+            <div class="floating-btn">
+                <span>💬</span>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
